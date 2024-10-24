@@ -70,6 +70,10 @@ app.use(
 //   })
 // );
 
+const serverless = require('serverless-http');
+module.exports = serverless(app);
+
+
 app.use(cookieParser());
 app.use(express.json());
 app.use("/api/auth", authRouter);
