@@ -27,7 +27,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 
-const allowedOrigins = ["http://localhost:5173"]; // Add more as needed
+const allowedOrigins = ["https://vizosecom.vercel.app"]; // Add more as needed
 
 app.use(
   cors({
@@ -70,8 +70,6 @@ app.use(
 //   })
 // );
 
-const serverless = require('serverless-http');
-module.exports = serverless(app);
 
 
 app.use(cookieParser());
