@@ -19,7 +19,7 @@ const commonFeatureRouter = require("./routes/common/feature-routes");
 //create a separate file for this and then import/use that file here
 
 mongoose
-  .connect("mongodb://192.168.2.9:27017/ecommerce")
+  .connect("mongodb+srv://sankar:Sankar%40001@mern.izmru.mongodb.net/ecommerce")
   .then(() => console.log("MongoDB connected"))
   .catch((error) => console.log(error));
 
@@ -27,7 +27,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 
-const allowedOrigins = ["http://localhost:5173"]; // Add more as needed
+const allowedOrigins = ["http://localhost:5173", 'https://vizosmern.vercel.app']; // Add more as needed
 
 app.use(
   cors({
