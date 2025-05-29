@@ -108,3 +108,14 @@ app.use("/api/shop/review", shopReviewRouter);
 app.use("/api/common/feature", commonFeatureRouter);
 
 module.exports = serverless(app);
+
+
+if (require.main === module) {
+  const PORT = process.env.PORT || 5000;
+
+  connectToDatabase().then(() => {
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running locally on http://localhost:${PORT}`);
+    });
+  });
+}
