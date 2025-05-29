@@ -24,10 +24,28 @@ const commonFeatureRouter = require("./routes/common/feature-routes");
 
 const app = express();
 
-// Reuse DB connection between invocations
+// // Reuse DB connection between invocations
+// let isConnected = false;
+
+// async function connectToDatabase() {
+//   if (isConnected) return;
+
+//   try {
+//     await mongoose.connect(process.env.MONGODB_URI || "mongodb+srv://sankar:Sankar%40001@mern.izmru.mongodb.net/ecommerce", {
+//       useNewUrlParser: true,
+//       useUnifiedTopology: true,
+//     });
+//     isConnected = true;
+//     console.log("MongoDB connected");
+//   } catch (error) {
+//     console.error("MongoDB connection error:", error);
+//   }
+// }
+
+// ✅ Reuse connection for performance in Vercel
 let isConnected = false;
 
-async function connectToDatabase() {
+const connectToDatabase = async () => {
   if (isConnected) return;
 
   try {
@@ -36,11 +54,19 @@ async function connectToDatabase() {
       useUnifiedTopology: true,
     });
     isConnected = true;
-    console.log("MongoDB connected");
-  } catch (error) {
-    console.error("MongoDB connection error:", error);
+    console.log("✅ MongoDB connected");
+  } catch (err) {
+    console.error("❌ MongoDB connection failed:", err.message);
   }
-}
+};
+
+// ✅ Export as serverless handler with DB connect
+const handler = async (req, res) => {
+  await connectToDatabase();
+  return app(req, res);
+};
+
+module.exports.handler = serverless(handler);
 
 const allowedOrigins = ["http://localhost:5173", "https://vizosmern.vercel.app"];
 
