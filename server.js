@@ -17,12 +17,30 @@ const shopReviewRouter = require("./routes/shop/review-routes");
 
 const commonFeatureRouter = require("./routes/common/feature-routes");
 
-mongoose
-  .connect("mongodb+srv://sankar:Sankar%40001@mern.izmru.mongodb.net/ecommerce")
-  .then(() => console.log("MongoDB connected"))
-  .catch((error) => console.log(error));
+// mongoose
+//   .connect("mongodb+srv://sankar:Sankar%40001@mern.izmru.mongodb.net/ecommerce")
+//   .then(() => console.log("MongoDB connected"))
+//   .catch((error) => console.log(error));
 
 const app = express();
+
+// Reuse DB connection between invocations
+let isConnected = false;
+
+async function connectToDatabase() {
+  if (isConnected) return;
+
+  try {
+    await mongoose.connect(process.env.MONGODB_URI || "mongodb+srv://sankar:Sankar%40001@mern.izmru.mongodb.net/ecommerce", {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    isConnected = true;
+    console.log("MongoDB connected");
+  } catch (error) {
+    console.error("MongoDB connection error:", error);
+  }
+}
 
 const allowedOrigins = ["http://localhost:5173", "https://vizosmern.vercel.app"];
 
