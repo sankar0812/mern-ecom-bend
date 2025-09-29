@@ -24,7 +24,6 @@ const commonFeatureRouter = require("./routes/common/feature-routes");
 
 const app = express();
 
-// // Reuse DB connection between invocations
 // let isConnected = false;
 
 // async function connectToDatabase() {
