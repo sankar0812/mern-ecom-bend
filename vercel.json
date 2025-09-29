@@ -7,7 +7,7 @@
       "config": {
         "includeFiles": [
           "routes/**",
-          "models/**" // if you use any
+          "models/**"
         ]
       }
     }
